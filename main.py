@@ -1,6 +1,59 @@
 import cairo
 import math
 
+def draw_window_on_front_face(ctx, x, y, window_width, window_height):
+    window_x_offset = 20  # Horizontal offset within the face
+    window_y_offset = 50  # Vertical offset within the face
+
+    # Compute window corners in isometric space
+    tlw, tlh = x - window_x_offset, y + window_y_offset  # Top-left of the window
+    trw, trh = tlw - window_width / 2, tlh - window_width / 2  # Top-right
+    blw, blh = tlw, tlh + window_height  # Bottom-left
+    brw, brh = trw, trh + window_height  # Bottom-right
+
+    # Draw the window
+    ctx.set_source_rgb(0.78, 0.85, 0.90)  # Glass-like blue
+    ctx.move_to(tlw, tlh)
+    ctx.line_to(trw, trh)
+    ctx.line_to(brw, brh)
+    ctx.line_to(blw, blh)
+    ctx.close_path()
+    ctx.fill_preserve()
+
+    # Outline
+    ctx.set_source_rgb(0, 0, 0)  # Dark border
+    ctx.set_line_width(3)
+    ctx.stroke()
+
+def draw_window_on_left_face(ctx, x, y, width, height):
+    """Draws a window on the front face of the house (aligned with XY axes)."""
+    # Define the window size
+    window_width = width
+    window_height = height
+
+    # Position window with offsets (you can adjust these as needed)
+    window_x_offset = 40  # Horizontal offset within the front face
+    window_y_offset = 30  # Vertical offset within the front face
+
+    # Draw the window on the front face (no skewing, just simple translation)
+    tlw, tlh = x - window_x_offset, y + window_y_offset  # Top-left
+    trw, trh = tlw + window_width, tlh  # Top-right
+    blw, blh = tlw + window_width + window_x_offset, tlh + window_height  # Bottom-left
+    brw, brh = trw + window_width + window_x_offset, trh + window_height  # Bottom-right
+
+    ctx.set_source_rgb(0.78, 0.85, 0.90)  # Glass-like blue color
+    ctx.move_to(tlw, tlh)
+    ctx.line_to(trw, trh)
+    ctx.line_to(brw, brh)
+    ctx.line_to(blw, blh)
+    ctx.close_path()
+    ctx.fill_preserve()
+
+    # Window outline
+    ctx.set_source_rgb(0, 0, 0)  # Dark border
+    ctx.set_line_width(3)
+    ctx.stroke()
+
 def draw_house(width=1500, height=1500):
     # Create surface and context
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
@@ -153,6 +206,12 @@ def draw_house(width=1500, height=1500):
     ctx.line_to(-cuboid_width / 2 + cuboid_height / 2, cuboid_depth / 2 + cuboid_height / 2)
     ctx.close_path()
     ctx.fill()
+
+    draw_window_on_front_face(ctx, 300, 80, 170, 60)
+    draw_window_on_front_face(ctx, 300, 10, 170, 60)
+
+    draw_window_on_left_face(ctx, 20, 200, 60, 100)
+    draw_window_on_left_face(ctx, 90, 200, 60, 100)
 
     # Save the image
     surface.write_to_png('house.png')
