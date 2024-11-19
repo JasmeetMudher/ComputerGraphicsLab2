@@ -1,5 +1,30 @@
 import cairo
 import math
+def draw_door_on_front_face(ctx, x, y, door_width, door_height):
+    # Draw the door body
+    ctx.set_source_rgb(0.6, 0.3, 0.1)  # Brown color for the door
+    ctx.move_to(x, y)
+    ctx.line_to(x + door_width, y - door_width / 2)  # Top-right
+    ctx.line_to(x + door_width, y + door_height - door_width / 2)  # Bottom-right
+    ctx.line_to(x, y + door_height)  # Bottom-left
+    ctx.close_path()
+    ctx.fill()
+
+    # Draw the lite (glass window on the door)
+    lite_margin = 10  # Margin from door edges
+    lite_width = door_width - lite_margin * 2
+    lite_height = door_height / 4  # Glass occupies top quarter of the door
+
+    ctx.set_source_rgb(0.78, 0.85, 0.90)  # Glass-like blue
+    ctx.move_to(x + lite_margin, y + lite_margin)
+    ctx.line_to(x + lite_margin + lite_width, y + lite_margin - lite_width / 2)  # Top-right of glass
+    ctx.line_to(
+        x + lite_margin + lite_width,
+        y + lite_margin + lite_height - lite_width / 2,
+    )  # Bottom-right of glass
+    ctx.line_to(x + lite_margin, y + lite_margin + lite_height)  # Bottom-left of glass
+    ctx.close_path()
+    ctx.fill()
 
 def draw_window_on_front_face(ctx, x, y, window_width, window_height):
     window_x_offset = 20  # Horizontal offset within the face
@@ -163,7 +188,7 @@ def draw_house(width=1500, height=1500):
 
     # Front side of the cuboid
     ctx.set_source_rgb(0.89, 0.85, 0.84)
-
+    
     ctx.move_to(-cuboid_width / 2, cuboid_depth / 2)
     ctx.line_to(cuboid_width / 2, cuboid_depth / 2)
     ctx.line_to(cuboid_width / 2 + cuboid_height / 2, cuboid_depth / 2 + cuboid_height / 2)
@@ -176,6 +201,11 @@ def draw_house(width=1500, height=1500):
 
     draw_window_on_left_face(ctx, 20, 200, 60, 100)
     draw_window_on_left_face(ctx, 90, 200, 60, 100)
+
+    draw_window_on_left_face(ctx, 240, 350, 60, 100)
+    draw_window_on_left_face(ctx, 170, 350, 60, 100)
+
+    draw_door_on_front_face(ctx, 430, 190, door_width=60, door_height=150)
 
     # Save the image
     surface.write_to_png('house.png')
