@@ -26,6 +26,63 @@ def draw_door_on_front_face(ctx, x, y, door_width, door_height):
     ctx.close_path()
     ctx.fill()
 
+def draw_roof_and_chimney(ctx):
+    ### ROOF ###
+    y_offset = 150  # Push down by 100 pixels
+
+    # Left Half
+    ctx.set_source_rgb(0, 25 / 255, 51 / 255)
+    ctx.move_to(300 * 1.875, (250 * 1.875) + y_offset)  # Start of left half
+    ctx.line_to(250 * 1.875, (250 * 1.875) + y_offset)  # Left side of roof
+    ctx.line_to(450 * 1.875, (170 * 1.875) + y_offset)  # Peak of the roof
+    ctx.line_to(500 * 1.875, (170 * 1.875) + y_offset)  # Right side of roof
+    ctx.close_path()
+    ctx.fill()
+
+    # Right Half
+    ctx.set_source_rgb(0, 51 / 255, 102 / 255)
+    ctx.move_to(500 * 1.875, (170 * 1.875) + y_offset)  # Right side of roof
+    ctx.line_to(550 * 1.875, (250 * 1.875) + y_offset)  # Right base of roof
+    ctx.line_to(350 * 1.875, (330 * 1.875) + y_offset)  # Left base of roof
+    ctx.line_to(300 * 1.875, (250 * 1.875) + y_offset)  # Left side of roof
+    ctx.close_path()
+    ctx.fill()
+
+    ### CHIMNEY ###
+    # Chimney dimensions and position (right side of the roof)
+    chimney_base_x = (500 * 1.875) - 30  # Move the chimney 300px to the left
+    chimney_base_y = (170 * 1.875) + 150 + y_offset  # Move the chimney 300px down
+    chimney_width = 40
+    chimney_height = 80
+    slant = 10  # Slant amount for the chimney to give perspective
+
+    # Front face of the chimney
+    ctx.set_source_rgb(224 / 255, 224 / 255, 224 / 255)  # Light gray for the front face
+    ctx.move_to(chimney_base_x, chimney_base_y)  # Bottom-left of the chimney
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - 20)  # Bottom-right (slanted)
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - chimney_height - 20)  # Top-right
+    ctx.line_to(chimney_base_x, chimney_base_y - chimney_height)  # Top-left
+    ctx.close_path()
+    ctx.fill()
+
+    # Right side of the chimney (slanted version)
+    ctx.set_source_rgb(192 / 255, 192 / 255, 192 / 255)  # Slightly darker gray
+    ctx.move_to(chimney_base_x + chimney_width + slant, chimney_base_y - 20)  # Bottom-right (slanted)
+    ctx.line_to(chimney_base_x + chimney_width + slant + slant, chimney_base_y - 40)  # Bottom-right further out
+    ctx.line_to(chimney_base_x + chimney_width + slant + slant, chimney_base_y - chimney_height - 40)  # Top-right further out
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - chimney_height - 20)  # Top-left
+    ctx.close_path()
+    ctx.fill()
+
+    # Top face of the chimney (slanted version)
+    ctx.set_source_rgb(160 / 255, 160 / 255, 160 / 255)  # Dark gray for the top
+    ctx.move_to(chimney_base_x, chimney_base_y - chimney_height)  # Top-left
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - chimney_height - 20)  # Top-right
+    ctx.line_to(chimney_base_x + chimney_width + slant + slant, chimney_base_y - chimney_height - 40)  # Far-right
+    ctx.line_to(chimney_base_x + slant, chimney_base_y - chimney_height - 20)  # Far-left
+    ctx.close_path()
+    ctx.fill()
+
 def draw_window_on_front_face(ctx, x, y, window_width, window_height):
     window_x_offset = 20  # Horizontal offset within the face
     window_y_offset = 50  # Vertical offset within the face
@@ -79,6 +136,48 @@ def draw_window_on_left_face(ctx, x, y, width, height):
     ctx.set_line_width(3)
     ctx.stroke()
 
+def draw_door(ctx):
+    """Draws a door on the front face of the house."""
+    # Define door position and dimensions
+    door_x1, door_y1 = 130, 110
+    door_x2, door_y2 = 250, 291
+    door_color = (74 / 255, 74 / 255, 74 / 255)  # Dark gray
+
+    # Draw the door rectangle
+    ctx.set_source_rgb(*door_color)
+    ctx.move_to(door_x1, door_y1)
+    ctx.line_to(door_x2, door_y1)
+    ctx.line_to(door_x2, door_y2)
+    ctx.line_to(door_x1, door_y2)
+    ctx.close_path()
+    ctx.fill()
+
+    # Glass panel (light blue)
+    glass_x1, glass_y1 = 143, 115
+    glass_x2, glass_y2 = 185, 285
+    glass_color = (166 / 255, 212 / 255, 234 / 255)  # Light blue
+
+    ctx.set_source_rgb(*glass_color)
+    ctx.move_to(glass_x1, glass_y1)
+    ctx.line_to(glass_x2, glass_y1)
+    ctx.line_to(glass_x2, glass_y2)
+    ctx.line_to(glass_x1, glass_y2)
+    ctx.close_path()
+    ctx.fill()
+
+    # Door handle (gray)
+    handle_x1, handle_y1 = 135, 210
+    handle_x2, handle_y2 = 138, 230
+    handle_color = (176 / 255, 176 / 255, 176 / 255)  # Gray
+
+    ctx.set_source_rgb(*handle_color)
+    ctx.move_to(handle_x1, handle_y1)
+    ctx.line_to(handle_x2, handle_y1)
+    ctx.line_to(handle_x2, handle_y2)
+    ctx.line_to(handle_x1, handle_y2)
+    ctx.close_path()
+    ctx.fill()
+
 def draw_house(width=1500, height=1500):
     # Create surface and context
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
@@ -88,28 +187,10 @@ def draw_house(width=1500, height=1500):
     ctx.set_source_rgb(1, 1, 1)
     ctx.paint()
 
-    ### ROOF ###
-
-    # Left Half
-    ctx.set_source_rgb(0, 25 / 255, 51 / 255)
-    ctx.move_to(300 * 1.875, 250 * 1.875)  # Start of left half
-    ctx.line_to(250 * 1.875, 250 * 1.875)  # Left side of roof
-    ctx.line_to(450 * 1.875, 170 * 1.875)  # Peak of the roof
-    ctx.line_to(500 * 1.875, 170 * 1.875)  # Right side of roof
-    ctx.close_path()
-    ctx.fill()
-
-    # Right Half
-    ctx.set_source_rgb(0, 51 / 255, 102 / 255)
-    ctx.move_to(500 * 1.875, 170 * 1.875)  # Right side of roof
-    ctx.line_to(550 * 1.875, 250 * 1.875)  # Right base of roof
-    ctx.line_to(350 * 1.875, 330 * 1.875)  # Left base of roof
-    ctx.line_to(300 * 1.875, 250 * 1.875)  # Left side of roof
-    ctx.close_path()
-    ctx.fill()
+    # Call the roof and chimney drawing function
+    draw_roof_and_chimney(ctx)
 
     ## BASE ###
-
     # Move to center of canvas
     ctx.translate(width / 2, height / 1.5)
 
@@ -164,16 +245,7 @@ def draw_house(width=1500, height=1500):
     ctx.save()
 
     # Translate the cuboid
-    ctx.translate(-420,-450)
-
-    # Draw the cuboid
-    ctx.set_source_rgb(0.7, 0.9, 0.5)
-    ctx.move_to(-cuboid_width / 2, -cuboid_depth / 2)
-    ctx.line_to(cuboid_width / 2, -cuboid_depth / 2)
-    ctx.line_to(cuboid_width / 2, cuboid_depth / 2)
-    ctx.line_to(-cuboid_width / 2, cuboid_depth / 2)
-    ctx.close_path()
-    ctx.fill()
+    ctx.translate(-420, -450)
 
     # Add slight darker green for side faces of the cuboid
     ctx.set_source_rgb(0.82, 0.79, 0.77)
@@ -205,7 +277,11 @@ def draw_house(width=1500, height=1500):
     draw_window_on_left_face(ctx, 240, 350, 60, 100)
     draw_window_on_left_face(ctx, 170, 350, 60, 100)
 
+<<<<<<< HEAD
     draw_door_on_front_face(ctx, 430, 190, door_width=60, door_height=150)
+=======
+    draw_door(ctx)
+>>>>>>> ed8c81fac261f11c6b7d85b57101004381ef8b65
 
     # Save the image
     surface.write_to_png('house.png')
