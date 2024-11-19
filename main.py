@@ -10,6 +10,28 @@ def draw_house(width=1500, height=1500):
     ctx.set_source_rgb(1, 1, 1)
     ctx.paint()
 
+    ### ROOF ###
+
+    # Left Half
+    ctx.set_source_rgb(0, 25 / 255, 51 / 255)
+    ctx.move_to(300 * 1.875, 250 * 1.875)  # Start of left half
+    ctx.line_to(250 * 1.875, 250 * 1.875)  # Left side of roof
+    ctx.line_to(450 * 1.875, 170 * 1.875)  # Peak of the roof
+    ctx.line_to(500 * 1.875, 170 * 1.875)  # Right side of roof
+    ctx.close_path()
+    ctx.fill()
+
+    # Right Half
+    ctx.set_source_rgb(0, 51 / 255, 102 / 255)
+    ctx.move_to(500 * 1.875, 170 * 1.875)  # Right side of roof
+    ctx.line_to(550 * 1.875, 250 * 1.875)  # Right base of roof
+    ctx.line_to(350 * 1.875, 330 * 1.875)  # Left base of roof
+    ctx.line_to(300 * 1.875, 250 * 1.875)  # Left side of roof
+    ctx.close_path()
+    ctx.fill()
+
+    ## BASE ###
+
     # Move to center of canvas
     ctx.translate(width / 2, height / 1.5)
 
