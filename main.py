@@ -59,9 +59,7 @@ def draw_green_base(width=800, height=800):
     ctx.close_path()
     ctx.fill()
 
-    # Save the image
     surface.write_to_png('house.png')
 
 
-# Call the function
 draw_green_base()
