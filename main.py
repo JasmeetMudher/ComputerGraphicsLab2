@@ -1,7 +1,7 @@
 import cairo
 import math
 
-def draw_house(width=800, height=800):
+def draw_house(width=1500, height=1500):
     # Create surface and context
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
     ctx = cairo.Context(surface)
@@ -23,9 +23,9 @@ def draw_house(width=800, height=800):
     ctx.rotate(iso_angle)
 
     # Define base dimensions
-    base_width = 180
-    base_height = 20
-    base_depth = 250
+    base_width = 390
+    base_height = 40
+    base_depth = 650
 
     # Draw the green base
     ctx.set_source_rgb(0.7, 0.9, 0.5)  # Light green color
@@ -57,14 +57,14 @@ def draw_house(width=800, height=800):
     ctx.fill()
 
     # Define cuboid dimensions
-    cuboid_width = 100
-    cuboid_height = 350
-    cuboid_depth = 150
+    cuboid_width = 280
+    cuboid_height = 800
+    cuboid_depth = 350
 
     ctx.save()
 
-    # Translate and rotate the cuboid
-    ctx.translate(-185,-180)
+    # Translate the cuboid
+    ctx.translate(-420,-450)
 
     # Draw the cuboid
     ctx.set_source_rgb(0.7, 0.9, 0.5)
