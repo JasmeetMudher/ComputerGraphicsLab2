@@ -30,6 +30,42 @@ def draw_house(width=1500, height=1500):
     ctx.close_path()
     ctx.fill()
 
+    ### CHIMNEY ###
+
+    # Chimney dimensions and position (right side of the roof)
+    chimney_base_x = (500 * 1.875) - 30  # Move the chimney 300px to the left
+    chimney_base_y = (170 * 1.875) + 150  # Move the chimney 300px down
+    chimney_width = 40
+    chimney_height = 80
+    slant = 10  # Slant amount for the chimney to give perspective
+
+    # Front face of the chimney
+    ctx.set_source_rgb(224 / 255, 224 / 255, 224 / 255)  # Light gray for the front face
+    ctx.move_to(chimney_base_x, chimney_base_y)  # Bottom-left of the chimney
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - 20)  # Bottom-right (slanted)
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - chimney_height - 20)  # Top-right
+    ctx.line_to(chimney_base_x, chimney_base_y - chimney_height)  # Top-left
+    ctx.close_path()
+    ctx.fill()
+
+    # Right side of the chimney (slanted version)
+    ctx.set_source_rgb(192 / 255, 192 / 255, 192 / 255)  # Slightly darker gray
+    ctx.move_to(chimney_base_x + chimney_width + slant, chimney_base_y - 20)  # Bottom-right (slanted)
+    ctx.line_to(chimney_base_x + chimney_width + slant + slant, chimney_base_y - 40)  # Bottom-right further out
+    ctx.line_to(chimney_base_x + chimney_width + slant + slant, chimney_base_y - chimney_height - 40)  # Top-right further out
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - chimney_height - 20)  # Top-left
+    ctx.close_path()
+    ctx.fill()
+
+    # Top face of the chimney (slanted version)
+    ctx.set_source_rgb(160 / 255, 160 / 255, 160 / 255)  # Dark gray for the top
+    ctx.move_to(chimney_base_x, chimney_base_y - chimney_height)  # Top-left
+    ctx.line_to(chimney_base_x + chimney_width + slant, chimney_base_y - chimney_height - 20)  # Top-right
+    ctx.line_to(chimney_base_x + chimney_width + slant + slant, chimney_base_y - chimney_height - 40)  # Far-right
+    ctx.line_to(chimney_base_x + slant, chimney_base_y - chimney_height - 20)  # Far-left
+    ctx.close_path()
+    ctx.fill()
+
     ## BASE ###
 
     # Move to center of canvas
