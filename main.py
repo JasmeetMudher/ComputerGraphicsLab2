@@ -177,6 +177,9 @@ def draw_house(width=1500, height=1500):
     draw_window_on_left_face(ctx, 20, 200, 60, 100)
     draw_window_on_left_face(ctx, 90, 200, 60, 100)
 
+    draw_window_on_left_face(ctx, 240, 350, 60, 100)
+    draw_window_on_left_face(ctx, 170, 350, 60, 100)
+
     # Save the image
     surface.write_to_png('house.png')
 
