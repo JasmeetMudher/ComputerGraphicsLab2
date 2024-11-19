@@ -54,6 +54,48 @@ def draw_window_on_left_face(ctx, x, y, width, height):
     ctx.set_line_width(3)
     ctx.stroke()
 
+def draw_door(ctx):
+    """Draws a door on the front face of the house."""
+    # Define door position and dimensions
+    door_x1, door_y1 = 130, 110
+    door_x2, door_y2 = 250, 291
+    door_color = (74 / 255, 74 / 255, 74 / 255)  # Dark gray
+
+    # Draw the door rectangle
+    ctx.set_source_rgb(*door_color)
+    ctx.move_to(door_x1, door_y1)
+    ctx.line_to(door_x2, door_y1)
+    ctx.line_to(door_x2, door_y2)
+    ctx.line_to(door_x1, door_y2)
+    ctx.close_path()
+    ctx.fill()
+
+    # Glass panel (light blue)
+    glass_x1, glass_y1 = 143, 115
+    glass_x2, glass_y2 = 185, 285
+    glass_color = (166 / 255, 212 / 255, 234 / 255)  # Light blue
+
+    ctx.set_source_rgb(*glass_color)
+    ctx.move_to(glass_x1, glass_y1)
+    ctx.line_to(glass_x2, glass_y1)
+    ctx.line_to(glass_x2, glass_y2)
+    ctx.line_to(glass_x1, glass_y2)
+    ctx.close_path()
+    ctx.fill()
+
+    # Door handle (gray)
+    handle_x1, handle_y1 = 135, 210
+    handle_x2, handle_y2 = 138, 230
+    handle_color = (176 / 255, 176 / 255, 176 / 255)  # Gray
+
+    ctx.set_source_rgb(*handle_color)
+    ctx.move_to(handle_x1, handle_y1)
+    ctx.line_to(handle_x2, handle_y1)
+    ctx.line_to(handle_x2, handle_y2)
+    ctx.line_to(handle_x1, handle_y2)
+    ctx.close_path()
+    ctx.fill()
+
 def draw_house(width=1500, height=1500):
     # Create surface and context
     surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, width, height)
@@ -215,6 +257,8 @@ def draw_house(width=1500, height=1500):
 
     draw_window_on_left_face(ctx, 240, 350, 60, 100)
     draw_window_on_left_face(ctx, 170, 350, 60, 100)
+
+    draw_door(ctx)
 
     # Save the image
     surface.write_to_png('house.png')
