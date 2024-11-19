@@ -48,6 +48,9 @@ def draw_green_base(width=800, height=800):
     ctx.close_path()
     ctx.fill()
 
+
+    ctx.set_source_rgb(0.7, 0.9, 0.7)
+
     # Front side
     ctx.move_to(-base_width / 2, base_depth / 2)
     ctx.line_to(base_width / 2, base_depth / 2)
